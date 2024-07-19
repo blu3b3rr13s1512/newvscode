@@ -10,7 +10,7 @@
 import streamlit as st
 import pandas as pd #pandas help to open, read, and display CSV files as a table (dataframe)
 
-st.set_page_config(layout = 'wide') # this makes our page full width
+#st.set_page_config(layout = 'wide') # this makes our page full width
 
 st.header("Student's Scores Database")
 

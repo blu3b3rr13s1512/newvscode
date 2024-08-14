@@ -9,6 +9,7 @@
 
 import streamlit as st
 import pandas as pd #pandas help to open, read, and display CSV files as a table (dataframe)
+import plotly.express as px
 
 #st.set_page_config(layout = 'wide') # this makes our page full width
 
@@ -16,7 +17,7 @@ st.header("Student's Scores Database")
 
 readcsv = pd.read_csv('scores.csv')
 
-menu = st.sidebar.selectbox('Menu',['Submit Scores','View Database'])
+menu = st.sidebar.selectbox('Menu',['Submit Scores','View Database | Chart'])
 
 
 if menu == "Submit Scores":
@@ -57,6 +58,13 @@ if menu == "Submit Scores":
         st.table(student_table)
         two_tables = pd.concat([readcsv,student_table],ignore_index=True)
         two_tables.to_csv('scores.csv',index=False)
-if menu == "View Database":
+if menu == "View Database | Chart":
     st.table(readcsv)
+    #Nath, English, Science, Media
+    subjects =['Math','English','Science','Media']
+    subjectstable = readcsv[subjects].mean().reset_index() #this creates a table of only specifiec columns
+    renamecolumns = subjectstable.rename(columns={"index":'Subject',0:"Average Score"})
+    st.table(subjectstable)
+    barchart = px.bar(renamecolumns,x="Subject",y='Average Score')
+    st.plotly_chart(barchart)
         
